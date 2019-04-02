@@ -83,21 +83,24 @@ $(document).ready(function ($) {
     totalDiv.text('Total: ' + checkout.subtotalPrice);
     // Get the items in the cart from the lineItems property
     let cartItems = checkout.lineItems;
-    // Create a variable to contain the list of products in the cart
-    let prodList = '<ul class="list-group list-group-flush">';
-    // loop over the line items in the cart
-    cartItems.forEach(function (item) {
-      prodList += `<li class="list-group-item">
-      ${item.title} x ${item.quantity}
-      <a href="javascript:void(0)" class="delProd text-danger" data-lineItemId="${item.id}">
-      Delete
-      </a></li>`;
-    }); // Closing line items loop
-    prodList += '<ul>';
-    // Add products list to the card div
-    cartDiv.html(prodList);
-    // Check if the cart lineItems are empty and display a message
-    if (cartItems.length === 0) {
+    // Check if the cart lineItems are NOT empty
+    // then display the products list in cart
+    // else display cart empty message
+    if (cartItems.length !== 0) {
+      // Create a variable to contain the list of products in the cart
+      let prodList = '<ul class="list-group list-group-flush">';
+      // loop over the line items in the cart
+      cartItems.forEach(function (item) {
+        prodList += `<li class="list-group-item">
+        ${item.title} x ${item.quantity}
+        <a href="javascript:void(0)" class="delProd text-danger" data-lineItemId="${item.id}">
+        Delete
+        </a></li>`;
+      }); // Closing line items loop
+      prodList += '<ul>';
+      // Add products list to the card div
+      cartDiv.html(prodList);
+    } else {
       cartDiv.html('Your cart is empty');
     }
   } // Closing cart update function
